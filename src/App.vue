@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <GetLocation />
+    <Weather />
   </div>
 </template>
 
 <script>
 import GetLocation from './components/GetLocation.vue'
+import Weather from './components/Weather.vue'
 
 export default {
   name: 'App',
   components: {
-    GetLocation
+    GetLocation,
+    Weather
   }
 }
 </script>
