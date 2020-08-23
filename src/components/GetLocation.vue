@@ -19,8 +19,6 @@
 </template>
 
 <script>
-const postal_code = require('japan-postal-code');
-
 export default {
   data() {
     return {
@@ -31,12 +29,7 @@ export default {
   methods: {
     search: function() {
       console.log("Dadsdfasdf")
-      postal_code.get('1000001', function(address) {
-  console.log(address.prefecture); // => "東京都"
-  console.log(address.city); // => "千代田区"
-  console.log(address.area); // => "千代田"
-  console.log(address.street); // => ""
-});
+     
     }
 
   }
