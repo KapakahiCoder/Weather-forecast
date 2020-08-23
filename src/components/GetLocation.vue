@@ -5,14 +5,18 @@
       <label>Search area: </label>
       <input type="text" v-model="code" />
       <p> 
-        <button @click="search">Search</button> 
+        <button @click="search(code)">Search</button> 
       </p>
     </form>
     <div>
-      <h3>Here is code: {{result}} </h3>
+      <h3>Here is code: {{code}} </h3>
       <h3>Please enter valid Japanese postal code without any hypens or spaces</h3>
     </div>
-
+    <div v-if = "responseAvailable == true"> 
+        <hr>
+          <h2>Here is the weather report for {{state}}, {{town}}: </h2>
+        <hr> 
+    </div>
   </div>
 
   
@@ -30,10 +34,9 @@ export default {
   },
   name: 'GetLocation',
   methods: {
-    search: function() {
-      console.log("Dadsdfasdf")
+    search: function(postalCode) {
   this.responseAvailable = false;    
-      fetch("https://postcodejp-api.p.rapidapi.com/postcodes?postcode=1000001", {
+      fetch('https://postcodejp-api.p.rapidapi.com/postcodes?postcode=' + postalCode, {
 	"method": "GET",
 	"headers": {
 		"x-rapidapi-host": "postcodejp-api.p.rapidapi.com",
@@ -41,7 +44,7 @@ export default {
 	}
 })
 .then(response => {
-    if (response.ok) {
+    if (response) {
       return response.json()
     } else {
       alert ("Server returned " + response.status + " : " + response.statusText );
@@ -52,7 +55,8 @@ export default {
   this.state = response.data[0].state;
   this.town = response.data[0].town;
   this.responseAvailable = true;
-  console.log("town: ", this.result)
+  console.log("town: ", this.town);
+  console.log("state: ", this.state);
 })
 .catch(err => {
 	console.log(err);
