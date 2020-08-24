@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>MAP</h2>
-    <h3>  {{town}}   </h3>
+    <h3>code from parent:   {{code}} {{long}} {{lat}}  </h3>
      <p> 
         <button @click="getCoords">Search</button> 
       </p>
@@ -14,14 +14,16 @@ export default {
   data() {
     return {
       long: null,
-      lat: null
+      lat: null,
+      test: 2720022
     }
   },
   name: 'Map',
-  props: ['town'],
+  props: ['code'],
   methods: {
     getCoords: function() {
-      fetch('https://google-maps-geocoding.p.rapidapi.com/geocode/json?language=en&address=2720022', {
+      console.log("this is called in functino", this.code)
+      fetch('https://google-maps-geocoding.p.rapidapi.com/geocode/json?language=en&address='+ this.code, {
 	"method": "GET",
 	"headers": {
 		"x-rapidapi-host": "google-maps-geocoding.p.rapidapi.com",

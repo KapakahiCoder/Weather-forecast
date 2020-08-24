@@ -18,7 +18,7 @@
         <hr> 
     </div>
     <Weather />
-    <Map />
+    <Map v-bind:code="code" />
   </div>
 </template>
 
