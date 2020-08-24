@@ -18,7 +18,7 @@
         <hr> 
     </div>
     <Weather />
-    <Map v-bind:code="code" />
+    <Map v-bind:zipcode="zipcode" />
   </div>
 </template>
 
@@ -30,6 +30,7 @@ export default {
   data() {
     return {
       code: null,
+      zipcode: null,
       responseAvailable: false,
       state: null,
       town: null,
@@ -42,6 +43,7 @@ export default {
   },
   methods: {
     search: function(postalCode) {
+      this.zipcode = postalCode;
   this.responseAvailable = false;    
       fetch('https://postcodejp-api.p.rapidapi.com/postcodes?postcode=' + postalCode, {
 	"method": "GET",
