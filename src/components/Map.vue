@@ -1,15 +1,15 @@
 <template>
   <div>
     <h2>MAP</h2>
-    <h3>code from parent:   {{long}} {{lat}}  </h3>
+    <h3>code from parent: {{mapURL}}  {{long}} {{lat}}  </h3>
      <p> 
-        <button @click="getCoords">Search</button> 
+        <button @click="displayMap">Search</button> 
     </p>
-    <img src='https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyAGN_gNfw6U8jULAkuUSNGR7qlHKwAtyBk'>
+    <img v-bind:src="mapURL">
   </div>
 </template>
 
-
+S
 <script>
 export default {
   data() {
@@ -23,10 +23,6 @@ export default {
   name: 'Map',
   props: ['zipcode'],
   watch: {
-  /*   zipcode: (abcde) => {
-      console.log("THIS IS TRIGGED!!!!", abcde);
-      this.getCoords();
-    } */
     zipcode: {
       handler() {
         console.log("everything is awesonme")
@@ -62,7 +58,11 @@ export default {
 .catch(err => {
 	console.log(err);
 });
-    }
+    },
+    displayMap() {
+      this.mapURL = 'https://maps.googleapis.com/maps/api/staticmap?center=' + this.lat + ',' + this.long + '&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyAGN_gNfw6U8jULAkuUSNGR7qlHKwAtyBk'
+
+    }    
   }
   
 }
