@@ -17,7 +17,7 @@
           <h2>Here is the weather report for {{state}}, {{town}}: </h2>
         <hr> 
     </div>
-    <Weather />
+    <Weather v-bind:town="town" :state="state"/>
     <Map v-bind:zipcode="zipcode" />
   </div>
 </template>
