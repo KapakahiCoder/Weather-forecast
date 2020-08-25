@@ -1,13 +1,21 @@
 <template>
   <div id="app">
     <h1>Let's check out the weather forecast for your area</h1>
+   
     <form  @submit.prevent>
-      <label class="label">Search area:</label>
-      <input class="input" type="text" v-model="code" />
-      <p> 
-        <button class="button" @click="search(code)">Search</button> 
-      </p>
+      
+      <b-input-group prepend="Postal Code:">
+        <div id="hello" class="col-xs-2">
+          <b-form-input @keyup.enter="search(code)" v-model="code"></b-form-input>
+        </div>
+        <b-input-group-append >
+          <b-button @click="search(code)" variant="info">Search</b-button>
+        </b-input-group-append>
+      </b-input-group>
+      <br>
+     
     </form>
+     
     <div>
       <h5>Please enter a valid Japanese postal code without any hypens or spaces</h5>
     </div>
@@ -85,30 +93,7 @@ export default {
   margin-top: 60px;
 }
 
-.button {
-  display: flex;
-  background-color: rgb(58, 209, 202);
-  border: none;
-  color: white;
-  padding: 10px 25px;
+#hello{
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 22px;
-  cursor: pointer;
-}
-
-.input {
-  width: 20%;
-  color:green;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  border: 2px solid rgb(58, 209, 202);;
-  border-radius: 4px;
-}
-
-.label {
-  font-size: 25px;
 }
 </style>
