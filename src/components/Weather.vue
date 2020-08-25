@@ -30,7 +30,6 @@ export default {
   watch: {
     state: {
       handler() {
-        console.log("TRIGGGEERRRRRRR");
         this.getWeather();
         
       }
@@ -53,13 +52,11 @@ export default {
   }
 })
 .then(response => {272
-  console.log("weather::::" , response  )
   this.items[0].date = (response.list[3].dt_txt).substring(0,10);
   this.items[0].weather = response.list[3].weather[0].main;
   this.items[0].icon = '<img src= "http://api.openweathermap.org/img/w/' + response.list[3].weather[0].icon + '.png">';
   this.items[0].minTemp = ((response.list[3].main.temp_min) - 273.15).toFixed(3);
   this.items[0].maxTemp = ((response.list[3].main.temp_max) - 273.15).toFixed(3);
-  this.iconURL = 'http://api.openweathermap.org/img/w/' + this.todayIcon + '.png'
   this.items[1].date = (response.list[11].dt_txt).substring(0,10);
   this.items[1].weather = response.list[11].weather[0].main;
   this.items[1].icon = '<img src= "http://api.openweathermap.org/img/w/' + response.list[11].weather[0].icon + '.png">';

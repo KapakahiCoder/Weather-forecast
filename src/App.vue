@@ -59,12 +59,9 @@ export default {
     }
 })
 .then(response => {
-  console.log("location object: ", response.data[0]);
   this.state = response.data[0].state;
   this.town = response.data[0].town;
   this.responseAvailable = true;
-  console.log("town: ", this.town);
-  console.log("state: ", this.state);
 })
 .catch(err => {
 	console.log(err);

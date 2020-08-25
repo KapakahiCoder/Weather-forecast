@@ -27,20 +27,17 @@ export default {
   watch: {
     zipcode: {
       handler() {
-        console.log("everything is awesonme")
         this.getCoords();
       }
     },
     isReady: {
       handler() {
-        console.log("ADAM")
         this.displayMap();
       }
     }
   },
   methods: {
     getCoords: function() {
-      console.log("this is called in functino", this.zipcode)
       fetch('https://google-maps-geocoding.p.rapidapi.com/geocode/json?language=en&address='+ this.zipcode, {
 	"method": "GET",
 	"headers": {
@@ -49,7 +46,6 @@ export default {
 	}
 })
 .then(response => {
-  console.log("first" , response);
   if (response) {
     return response.json()
   } else {
@@ -57,12 +53,9 @@ export default {
   }
 })
 .then(response => {
-  console.log("final: ", response)
   this.long = response.results[0].geometry.location.lng;
   this.lat = response.results[0].geometry.location.lat
   this.isReady = !this.isReady;
-  console.log("long: ", this.long);
-  console.log("lat: ", this.lat);
 })
 .catch(err => {
 	console.log(err);

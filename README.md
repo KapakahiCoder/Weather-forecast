@@ -1,5 +1,12 @@
 # Weather Forecast
 
+On a cold, lonely night, you want to curl up on the sofa and relax with a nice drink...but what should you drink? This app helps you answer that burning question that we all have. You can choose a random drink or search for drinks made with a specific ingredient you may have! Please enjoy, but drink responsibly!
+
+
+### Here's a preview of the intro screen:
+
+![Kampai Cocktails1](./kampai1.png)
+
 ## Project setup
 ```
 yarn install
@@ -27,12 +34,10 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## Author
 
-- [Garrett Chun](https://github.com/KapakahiCoder)
-
-Garrett Chun  -  [![alt text][1.1]][3]       [![alt text][1.2]][4]
+Garrett Chun  -  [![alt text][1.1]][1]       [![alt text][1.2]][2]
 
 [1.1]: http://i.imgur.com/9I6NRUm.png
 [1.2]: ./src/assets/twitter20.png
 
-[3]: https://github.com/KapakahiCoder
-[4]: http://www.twitter.com/KapakahiCoder
+[1]: https://github.com/KapakahiCoder
+[2]: http://www.twitter.com/KapakahiCoder
