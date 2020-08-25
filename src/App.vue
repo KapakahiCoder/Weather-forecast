@@ -42,6 +42,10 @@ export default {
   },
   methods: {
     search: function(postalCode) {
+      if (postalCode.length !== 7 || isNaN(postalCode) === true) {
+        alert ("Please enter a valid 7 digit Japanese postal code");
+        console.log("badddddd number")
+      }
       this.zipcode = postalCode;
   this.responseAvailable = false;    
       fetch('https://postcodejp-api.p.rapidapi.com/postcodes?postcode=' + postalCode, {
