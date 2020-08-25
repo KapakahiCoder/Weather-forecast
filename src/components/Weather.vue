@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     getWeather() {
-      fetch("https://community-open-weather-map.p.rapidapi.com/forecast?q=hawaii", {
+      fetch("https://community-open-weather-map.p.rapidapi.com/forecast?q="+this.town+","+this.state, {
 	"method": "GET",
 	"headers": {
 		"x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",

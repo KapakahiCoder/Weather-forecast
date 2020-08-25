@@ -1,10 +1,6 @@
 <template>
   <div>
-    <h2>MAP</h2>
-    <h3>code from parent: {{mapURL}}  {{long}} {{lat}}  </h3>
-     <p> 
-        <button @click="displayMap">Search</button> 
-    </p>
+    <h2>Map of local area</h2>
     <img v-bind:src="mapURL">
   </div>
 </template>

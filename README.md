@@ -1,4 +1,4 @@
-# weather1
+# Weather Forecast
 
 ## Project setup
 ```
