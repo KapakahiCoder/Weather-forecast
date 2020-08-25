@@ -1,15 +1,21 @@
 <template>
   <div>
-    <h2>Map of local area</h2>
-    <img v-bind:src="mapURL">
+    <div v-if = "responseAvailable == true">
+      <h2>Map of local area</h2>
+      <img v-bind:src="mapURL">
+      <br>
+      <br>
+      <br>
+    </div>
   </div>
 </template>
 
-S
+
 <script>
 export default {
   data() {
     return {
+      responseAvailable: false,
       long: null,
       lat: null,
       isReady: false,
@@ -63,6 +69,7 @@ export default {
 });
     },
     displayMap() {
+      this.responseAvailable = true;
       this.mapURL = 'https://maps.googleapis.com/maps/api/staticmap?center=' + this.lat + ',' + this.long + '&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyAGN_gNfw6U8jULAkuUSNGR7qlHKwAtyBk'
 
     }    

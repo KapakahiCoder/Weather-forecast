@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Let's checkout the weather forecast for your area</h1>
+    <h1>Let's check out the weather forecast for your area</h1>
     <form @submit.prevent>
       <label>Search area: </label>
       <input type="text" v-model="code" />
@@ -9,7 +9,6 @@
       </p>
     </form>
     <div>
-      <h3>Here is code: {{code}} </h3>
       <h3>Please enter valid Japanese postal code without any hypens or spaces</h3>
     </div>
     <div v-if = "responseAvailable == true"> 
