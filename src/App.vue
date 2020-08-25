@@ -9,7 +9,7 @@
       </p>
     </form>
     <div>
-      <h3>Please enter valid Japanese postal code without any hypens or spaces</h3>
+      <h5>Please enter valid Japanese postal code without any hypens or spaces</h5>
     </div>
     <div v-if = "responseAvailable == true"> 
         <hr>
