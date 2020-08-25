@@ -26,7 +26,10 @@ export default {
     }
   },
   name: 'Weather',
-  props: ['town', 'state'],
+  props: {
+    town: String,
+    state: String
+  },
   watch: {
     state: {
       handler() {

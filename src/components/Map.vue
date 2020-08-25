@@ -23,7 +23,11 @@ export default {
     }
   },
   name: 'Map',
-  props: ['zipcode'],
+  props: {
+    zipcode: {
+      type: String
+    },
+  },  
   watch: {
     zipcode: {
       handler() {
