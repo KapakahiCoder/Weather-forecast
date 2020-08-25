@@ -1,15 +1,15 @@
 <template>
   <div id="app">
     <h1>Let's check out the weather forecast for your area</h1>
-    <form @submit.prevent>
-      <label>Search area: </label>
-      <input type="text" v-model="code" />
+    <form  @submit.prevent>
+      <label class="label">Search area:</label>
+      <input class="input" type="text" v-model="code" />
       <p> 
-        <button @click="search(code)">Search</button> 
+        <button class="button" @click="search(code)">Search</button> 
       </p>
     </form>
     <div>
-      <h5>Please enter valid Japanese postal code without any hypens or spaces</h5>
+      <h5>Please enter a valid Japanese postal code without any hypens or spaces</h5>
     </div>
     <div v-if = "responseAvailable == true"> 
         <hr>
@@ -83,5 +83,32 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.button {
+  display: flex;
+  background-color: rgb(58, 209, 202);
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.input {
+  width: 20%;
+  color:green;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid rgb(58, 209, 202);;
+  border-radius: 4px;
+}
+
+.label {
+  font-size: 25px;
 }
 </style>
