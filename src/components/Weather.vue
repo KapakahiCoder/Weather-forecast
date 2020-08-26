@@ -34,7 +34,6 @@ export default {
     state: {
       handler() {
         this.getWeather();
-        
       }
     }
   },
@@ -54,7 +53,7 @@ export default {
     alert ("Server returned " + response.status + " : " + response.statusText );
   }
 })
-.then(response => {272
+.then(response => {
   this.items[0].date = (response.list[3].dt_txt).substring(0,10);
   this.items[0].weather = response.list[3].weather[0].main;
   this.items[0].icon = '<img src= "http://api.openweathermap.org/img/w/' + response.list[3].weather[0].icon + '.png">';
@@ -79,8 +78,6 @@ export default {
   }
 }
 </script>
-
-
 
 <style scoped>
 

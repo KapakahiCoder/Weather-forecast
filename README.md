@@ -7,7 +7,7 @@ Please note that "Min Temp" and "Max Temp" are the actual min and max temperatur
 
 ### Here's a preview of the intro screen:
 
-![WeatherForecast](./src/assets/weather.png)
+![WeatherForecast](./src/assets/weatherScreenshot.png)
 
 ## Project setup
 ```
@@ -36,7 +36,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## Author
 
-Garrett Chun  -  [![alt text][1.1]][1]       [![alt text][1.2]][2]
+Garrett Chun  -  [![Github][1.1]][1]       [![Twitter][1.2]][2]
 
 [1.1]: http://i.imgur.com/9I6NRUm.png
 [1.2]: ./src/assets/twitter20.png

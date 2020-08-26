@@ -1,23 +1,20 @@
 <template>
   <div id="app">
-    <h1>Let's check out the weather forecast for your area</h1>
-   
-    <form  @submit.prevent>
-      
+    <h1>Let's check out the weather forecast for your area</h1>  
+    <form  id="form" @submit.prevent>
       <b-input-group prepend="Postal Code:">
-        <div id="hello" class="col-xs-2">
-          <b-form-input @keyup.enter="search(code)" v-model="code"></b-form-input>
+        <div>
+          <b-form-input class="form-control" @keyup.enter="search(code)" v-model="code"></b-form-input>
         </div>
         <b-input-group-append >
           <b-button @click="search(code)" variant="info">Search</b-button>
         </b-input-group-append>
       </b-input-group>
       <br>
-     
     </form>
      
     <div>
-      <h5>Please enter a valid Japanese postal code without any hypens or spaces</h5>
+      <h6>Please enter a valid Japanese postal code without any hypens or spaces</h6>
     </div>
     <div v-if = "responseAvailable == true"> 
         <hr>
@@ -52,7 +49,6 @@ export default {
     search: function(postalCode) {
       if (postalCode.length !== 7 || isNaN(postalCode) === true) {
         alert ("Please enter a valid 7 digit Japanese postal code");
-        console.log("badddddd number")
       }
       this.zipcode = postalCode;
   this.responseAvailable = false;    
@@ -93,7 +89,9 @@ export default {
   margin-top: 60px;
 }
 
-#hello{
-  text-align: center;
+#form {
+  margin-top: 30px;
+  margin-left: 36%;
 }
+
 </style>
