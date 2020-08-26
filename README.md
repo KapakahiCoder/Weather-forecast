@@ -5,7 +5,7 @@ Using a valid Japanese postal code, get a three-day weather forecast and a map o
 Please note that "Min Temp" and "Max Temp" are the actual min and max temperature in the city at that current time and it is used to see deviation from the current temperature for your reference. 
 
 
-### Here's a preview of the intro screen:
+### Here's a picture of the result screen:
 
 ![WeatherForecast](./src/assets/weatherScreenshot.png)
 
