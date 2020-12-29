@@ -50,7 +50,6 @@ export default {
 	}
 })
 .then(response => {
-  console.log(response, "helllooooo")
   if (response) {
     return response.json()
   } else {
@@ -58,11 +57,9 @@ export default {
   }
 })
 .then(response => {
-  console.log(response, "BBBBB")
   this.long = response.results[0].geometry.location.lng;
   this.lat = response.results[0].geometry.location.lat
   this.isReady = !this.isReady;
-  console.log(this.lat, this.long)
 })
 .catch(err => {
 	console.log(err);
