@@ -60,7 +60,7 @@ export default {
           headers: {
             "x-rapidapi-host": "postcodejp-api.p.rapidapi.com",
             "x-rapidapi-key":
-              "43aab3d406mshab354846eb51230p1e10f3jsn1f88db389414",
+              process.env.VUE_APP_RAPIDAPI_KEY,
           },
         }
       )

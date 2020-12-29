@@ -46,10 +46,11 @@ export default {
 	"method": "GET",
 	"headers": {
 		"x-rapidapi-host": "google-maps-geocoding.p.rapidapi.com",
-		"x-rapidapi-key": "43aab3d406mshab354846eb51230p1e10f3jsn1f88db389414"
+		"x-rapidapi-key": process.env.VUE_APP_RAPIDAPI_KEY
 	}
 })
 .then(response => {
+  console.log(response, "helllooooo")
   if (response) {
     return response.json()
   } else {
@@ -57,9 +58,11 @@ export default {
   }
 })
 .then(response => {
+  console.log(response, "BBBBB")
   this.long = response.results[0].geometry.location.lng;
   this.lat = response.results[0].geometry.location.lat
   this.isReady = !this.isReady;
+  console.log(this.lat, this.long)
 })
 .catch(err => {
 	console.log(err);

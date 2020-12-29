@@ -43,12 +43,10 @@ export default {
 	"method": "GET",
 	"headers": {
 		"x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
-    // "x-rapidapi-key": "43aab3d406mshab354846eb51230p1e10f3jsn1f88db389414"
-    "x-rapidapi-key": process.env.VUE_APP_WEATHER_KEY
+    "x-rapidapi-key": process.env.VUE_APP_RAPIDAPI_KEY
 	}
 })
 .then(response => {
-  console.log("adfsdfdsf", process.env.VUE_APP_WEATHER_KEY)
   if (response) {
     return response.json();
   } else {
