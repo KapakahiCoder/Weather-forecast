@@ -51,14 +51,12 @@ export default {
 })
 .then(response => {
   if (response) {
-    console.log(response, "AAAAAAA")
     return response.json()
   } else {
     alert ("Server returned " + response.status + " : " + response.statusText );
   }
 })
 .then(response => {
-  console.log(response, "BBBBBBBBB")
   this.long = response.results[0].geometry.location.lng;
   this.lat = response.results[0].geometry.location.lat
   this.isReady = !this.isReady;
