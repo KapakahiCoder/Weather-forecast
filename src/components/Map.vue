@@ -51,12 +51,14 @@ export default {
 })
 .then(response => {
   if (response) {
+    console.log(response, "AAAAAAA")
     return response.json()
   } else {
     alert ("Server returned " + response.status + " : " + response.statusText );
   }
 })
 .then(response => {
+  console.log(response, "BBBBBBBBB")
   this.long = response.results[0].geometry.location.lng;
   this.lat = response.results[0].geometry.location.lat
   this.isReady = !this.isReady;
@@ -66,8 +68,9 @@ export default {
 });
     },
     displayMap() {
+      const googleToken = process.env.VUE_APP_GOOGLE_KEY;
       this.responseAvailable = true;
-      this.mapURL = 'https://maps.googleapis.com/maps/api/staticmap?center=' + this.lat + ',' + this.long + '&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyAGN_gNfw6U8jULAkuUSNGR7qlHKwAtyBk'
+      this.mapURL = `https://maps.googleapis.com/maps/api/staticmap?center=` + this.lat + `,` + this.long + `&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=${googleToken}`
     }    
   }
 }
