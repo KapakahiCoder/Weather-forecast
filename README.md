@@ -2,19 +2,22 @@
 
 Using a valid Japanese postal code, get a three-day weather forecast and a map of that area.
 
-Please note that "Min Temp" and "Max Temp" are the actual min and max temperature in the city at that current time and it is used to see deviation from the current temperature for your reference. 
-
+Please note that "Min Temp" and "Max Temp" are the actual min and max temperature in the city at that current time and it is used to see deviation from the current temperature for your reference.
 
 ### Here's a picture of the result screen:
 
 ![WeatherForecast](./src/assets/weatherScreenshot.png)
 
 ## Project setup
+
 ```
 yarn install
 ```
 
+Please rename the ".env-example" file to ".env" and enter your own RapidAPI key and Google developer key.
+
 ### Compiles and hot-reloads for development
+
 ```
 yarn serve
 ```
@@ -36,10 +39,9 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## Author
 
-Garrett Chun  -  [![Github][1.1]][1]       [![Twitter][1.2]][2]
+Garrett Chun - [![Github][1.1]][1] [![Twitter][1.2]][2]
 
 [1.1]: http://i.imgur.com/9I6NRUm.png
 [1.2]: ./src/assets/twitter20.png
-
 [1]: https://github.com/KapakahiCoder
 [2]: http://www.twitter.com/KapakahiCoder
