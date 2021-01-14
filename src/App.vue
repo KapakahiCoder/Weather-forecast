@@ -46,6 +46,8 @@ export default {
     Map,
   },
   methods: {
+    // Get the state and city name from user given zipcode
+    // State and city name is needed to get the weather forecast
     search: function (postalCode) {
       if (postalCode.length !== 7 || isNaN(postalCode) === true) {
         alert("Please enter a valid 7 digit Japanese postal code");

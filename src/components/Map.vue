@@ -10,8 +10,8 @@
   </div>
 </template>
 
-
 <script>
+
 export default {
   data() {
     return {
@@ -27,13 +27,15 @@ export default {
     zipcode: {
       type: String
     },
-  },  
+  },
+  // When zipcode prop is updated, the getCoords function will trigger and get the long and lat coordinates
   watch: {
     zipcode: {
       handler() {
         this.getCoords();
       }
     },
+  // Once the coordinates are returned, displayMap will run and get the map of the area  
     isReady: {
       handler() {
         this.displayMap();
@@ -59,6 +61,9 @@ export default {
 .then(response => {
   this.long = response.results[0].geometry.location.lng;
   this.lat = response.results[0].geometry.location.lat
+
+  // This will toogle isReady and the change of state means the coordinates are returned
+  // and this will trigger the displayMap function
   this.isReady = !this.isReady;
 })
 .catch(err => {
