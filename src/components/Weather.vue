@@ -19,9 +19,9 @@ export default {
     return {
       responseAvailable: false,
       items: [
-        {date: null, weather: null, icon: null, temp: null, minTemp: null, maxTemp: null},
-        {date: null, weather: null, icon: null, temp: null, minTemp: null, maxTemp: null},
-        {date: null, weather: null, icon: null, temp: null, minTemp: null, maxTemp: null}
+        {date: null, weather: null, icon: null, temp: null, humidity: null},
+        {date: null, weather: null, icon: null, temp: null, humidity: null},
+        {date: null, weather: null, icon: null, temp: null, humidity: null}
       ],
     }
   },
@@ -61,21 +61,22 @@ export default {
   this.items[0].weather = response.list[3].weather[0].main;
   this.items[0].icon = '<img src= "http://api.openweathermap.org/img/w/' + response.list[3].weather[0].icon + '.png">';
   this.items[0].temp = ((response.list[3].main.temp) - 273.15).toFixed(3);
-  this.items[0].maxTemp = ((response.list[3].main.temp_max) - 273.15).toFixed(3);
+  this.items[0].humidity = response.list[3].main.humidity;
+
   // Weather forecast for day 2
   this.items[1].date = (response.list[11].dt_txt).substring(0,10);
   this.items[1].weather = response.list[11].weather[0].main;
   this.items[1].icon = '<img src= "http://api.openweathermap.org/img/w/' + response.list[11].weather[0].icon + '.png">';
   this.items[1].temp = ((response.list[11].main.temp) - 273.15).toFixed(3);
-  this.items[1].minTemp = ((response.list[11].main.temp_min) - 273.15).toFixed(3);
-  this.items[1].maxTemp = ((response.list[11].main.temp_max) - 273.15).toFixed(3);
+  this.items[1].humidity = response.list[11].main.humidity;
+
   // Weather forecast for day 3
   this.items[2].date = (response.list[19].dt_txt).substring(0,10);
   this.items[2].weather = response.list[19].weather[0].main;
   this.items[2].icon = '<img src= "http://api.openweathermap.org/img/w/' + response.list[19].weather[0].icon + '.png">';
   this.items[2].temp = ((response.list[19].main.temp) - 273.15).toFixed(3);
-  this.items[2].minTemp = ((response.list[19].main.temp_min) - 273.15).toFixed(3);
-  this.items[2].maxTemp = ((response.list[19].main.temp_max) - 273.15).toFixed(3);
+  this.items[2].humidity = response.list[19].main.humidity;
+
   this.responseAvailable = true;
 })
 .catch(err => {
