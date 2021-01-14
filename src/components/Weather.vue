@@ -2,7 +2,7 @@
   <div>
     <div v-if = "responseAvailable == true">
       <div>
-        <b-table striped hover :items="items">
+        <b-table striped hover :items="items" :fields="fields">
           <template v-slot:cell(icon)="data">
             <span v-html="data.value"></span>
           </template>
@@ -18,6 +18,12 @@ export default {
   data() {
     return {
       responseAvailable: false,
+      fields: [ 
+        { key: 'date'},
+        { key: 'weather'},
+        { key: 'icon'},
+        { key: 'temp', label: 'Temp (C°)'},
+        { key: 'humidity', label: 'Humidity (%)'}],
       items: [
         {date: null, weather: null, icon: null, temp: null, humidity: null},
         {date: null, weather: null, icon: null, temp: null, humidity: null},
