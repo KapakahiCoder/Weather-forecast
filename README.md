@@ -4,7 +4,7 @@ Using a valid Japanese postal code, get a three-day weather forecast and a map o
 
 ### Here's a picture of the result screen:
 
-![WeatherForecast](./src/assets/weatherForecastScreenshot2.png)
+![WeatherForecast](./src/assets/weatherScreenshot4.png)
 
 ## Project setup
 
