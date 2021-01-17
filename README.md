@@ -2,6 +2,9 @@
 
 Using a valid Japanese postal code, get a three-day weather forecast and a map of that area.
 
+Check the weather forecast at:
+[japan-weather-forecast](https://japan-weather-forecast.web.app/)
+
 ### Here's a picture of the result screen:
 
 ![WeatherForecast](./src/assets/weatherScreen4.png)
