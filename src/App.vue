@@ -34,8 +34,8 @@
       <h2>Here is the weather report for {{ state }}, {{ town }}:</h2>
       <hr />
     </div>
-    <Weather v-bind:town="town" :state="state" />
-    <Map v-bind:long="long" :lat="lat" />
+    <Weather v-bind:town="town" :state="state" :lon="lon" :lat="lat" />
+    <Map v-bind:lon="lon" :lat="lat" />
   </div>
 </template>
 
@@ -51,7 +51,7 @@ export default {
       responseAvailable: false,
       state: null,
       town: null,
-      long: null,
+      lon: null,
       lat: null,
     };
   },
@@ -118,7 +118,7 @@ export default {
           }
         })
         .then((response) => {
-          this.long = response.results[0].geometry.location.lng;
+          this.lon = response.results[0].geometry.location.lng;
           this.lat = response.results[0].geometry.location.lat;
           this.responseAvailable = true;
         })

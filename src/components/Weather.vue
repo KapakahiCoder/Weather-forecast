@@ -33,12 +33,22 @@ export default {
   },
   name: "Weather",
   props: {
-    town: String,
-    state: String,
-  },
-  // When the "state" prop changes, getWeather() will run
-  watch: {
+    town: {
+      type: String,
+    },
     state: {
+      type: String,
+    },
+    lon: {
+      type: Number,
+    },
+    lat: {
+      type: Number,
+    },
+  },
+  // When the "lon" prop changes, getWeather will get the weather forecast for that area
+  watch: {
+    lon: {
       handler() {
         this.getWeather();
       },
@@ -49,7 +59,11 @@ export default {
       // fetch("https://community-open-weather-map.p.rapidapi.com/forecast?q="+this.town+","+this.state, {
       //  fetch("http://api.openweathermap.org/geo/1.0/zip?zip=1140003,JP&appid="+process.env.VUE_APP_OPEN_WEATHER_KEY, {
       fetch(
-        "https://api.openweathermap.org/data/3.0/onecall?lat=35.7625&lon=139.7449&appid=" +
+        `https://api.openweathermap.org/data/3.0/onecall?lat=` +
+          this.lat +
+          `&lon=` +
+          this.lon +
+          `&appid=` +
           process.env.VUE_APP_OPEN_WEATHER_KEY,
         {
           method: "GET",
