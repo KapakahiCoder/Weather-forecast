@@ -4,25 +4,38 @@
     <form id="form" @submit.prevent>
       <b-input-group prepend="Postal Code:">
         <div>
-          <b-form-input class="form-control" @keyup.enter="search(code)" v-model="code"></b-form-input>
+          <b-form-input
+            class="form-control"
+            @keyup.enter="search(code)"
+            v-model="code"
+          ></b-form-input>
         </div>
         <b-input-group-append>
-          <b-button @click="search(code)" variant="info">Search</b-button>
+          <b-button
+            @click="
+              search(code);
+              getCoords();
+            "
+            variant="info"
+            >Search</b-button
+          >
         </b-input-group-append>
       </b-input-group>
       <br />
     </form>
 
     <div>
-      <h6>Please enter a valid Japanese postal code without any hypens or spaces</h6>
+      <h6>
+        Please enter a valid Japanese postal code without any hypens or spaces
+      </h6>
     </div>
     <div v-if="responseAvailable == true">
       <hr />
-      <h2>Here is the weather report for {{state}}, {{town}}:</h2>
+      <h2>Here is the weather report for {{ state }}, {{ town }}:</h2>
       <hr />
     </div>
     <Weather v-bind:town="town" :state="state" />
-    <Map v-bind:zipcode="zipcode" />
+    <Map v-bind:long="long" :lat="lat" />
   </div>
 </template>
 
@@ -38,6 +51,8 @@ export default {
       responseAvailable: false,
       state: null,
       town: null,
+      long: null,
+      lat: null,
     };
   },
   name: "App",
@@ -47,8 +62,7 @@ export default {
   },
   methods: {
     // Get the state and city name from user given zipcode
-    // State and city name is needed to get the weather forecast
-    search: function (postalCode) {
+    search: function(postalCode) {
       if (postalCode.length !== 7 || isNaN(postalCode) === true) {
         alert("Please enter a valid 7 digit Japanese postal code");
       }
@@ -61,8 +75,7 @@ export default {
           method: "GET",
           headers: {
             "x-rapidapi-host": "postcodejp-api.p.rapidapi.com",
-            "x-rapidapi-key":
-              process.env.VUE_APP_RAPIDAPI_KEY,
+            "x-rapidapi-key": process.env.VUE_APP_RAPIDAPI_KEY,
           },
         }
       )
@@ -78,6 +91,35 @@ export default {
         .then((response) => {
           this.state = response.data[0].state;
           this.town = response.data[0].town;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getCoords: function() {
+      fetch(
+        "https://google-maps-geocoding.p.rapidapi.com/geocode/json?language=en&address=" +
+          this.zipcode,
+        {
+          method: "GET",
+          headers: {
+            "x-rapidapi-host": "google-maps-geocoding.p.rapidapi.com",
+            "x-rapidapi-key": process.env.VUE_APP_RAPIDAPI_KEY,
+          },
+        }
+      )
+        .then((response) => {
+          if (response) {
+            return response.json();
+          } else {
+            alert(
+              "Server returned " + response.status + " : " + response.statusText
+            );
+          }
+        })
+        .then((response) => {
+          this.long = response.results[0].geometry.location.lng;
+          this.lat = response.results[0].geometry.location.lat;
           this.responseAvailable = true;
         })
         .catch((err) => {

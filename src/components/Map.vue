@@ -16,60 +16,27 @@ export default {
   data() {
     return {
       responseAvailable: false,
-      long: null,
-      lat: null,
-      isReady: false,
       mapURL: null,
     }
   },
   name: 'Map',
   props: {
-    zipcode: {
-      type: String
+    long: {
+      type: Number
     },
+    lat: {
+      type: Number
+    }
   },
-  // When zipcode prop is updated, the getCoords function will trigger and get the long and lat coordinates
   watch: {
-    zipcode: {
-      handler() {
-        this.getCoords();
-      }
-    },
-  // Once the coordinates are returned, displayMap will run and get the map of the area  
-    isReady: {
+  // When long coordinate prop is updated returned, displayMap will run and get the map of the area  
+    long: {
       handler() {
         this.displayMap();
       }
     }
   },
   methods: {
-    getCoords: function() {
-      fetch('https://google-maps-geocoding.p.rapidapi.com/geocode/json?language=en&address='+ this.zipcode, {
-	"method": "GET",
-	"headers": {
-		"x-rapidapi-host": "google-maps-geocoding.p.rapidapi.com",
-		"x-rapidapi-key": process.env.VUE_APP_RAPIDAPI_KEY
-	}
-})
-.then(response => {
-  if (response) {
-    return response.json()
-  } else {
-    alert ("Server returned " + response.status + " : " + response.statusText );
-  }
-})
-.then(response => {
-  this.long = response.results[0].geometry.location.lng;
-  this.lat = response.results[0].geometry.location.lat
-
-  // This will toogle isReady and the change of state means the coordinates are returned
-  // and this will trigger the displayMap function
-  this.isReady = !this.isReady;
-})
-.catch(err => {
-	console.log(err);
-});
-    },
     displayMap() {
       const googleToken = process.env.VUE_APP_GOOGLE_KEY;
       // Displays map only if responseAvailable is true
