@@ -55,9 +55,23 @@ export default {
     },
   },
   methods: {
+    convertToJST(unixTime) {
+      const jstTime = unixTime * 1000;
+      const jstDate = new Date(jstTime);
+
+      // Extract the date compenents from the JST date
+      const daysOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      const year = jstDate.getFullYear();
+      const month = jstDate.getMonth() + 1;
+      const day = jstDate.getDate();
+      const dayOfWeek = daysOfTheWeek[jstDate.getDay()];
+
+      // Return the date in "YYYY-MM-DD (day)" format
+      return `${year}-${month
+        .toString()
+        .padStart(2, "0")}-${day.toString().padStart(2, "0")} (${dayOfWeek})`;
+    },
     getWeather() {
-      // fetch("https://community-open-weather-map.p.rapidapi.com/forecast?q="+this.town+","+this.state, {
-      //  fetch("http://api.openweathermap.org/geo/1.0/zip?zip=1140003,JP&appid="+process.env.VUE_APP_OPEN_WEATHER_KEY, {
       fetch(
         `https://api.openweathermap.org/data/3.0/onecall?lat=` +
           this.lat +
@@ -67,10 +81,6 @@ export default {
           process.env.VUE_APP_OPEN_WEATHER_KEY,
         {
           method: "GET",
-          /* "headers": {
-		"x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
-    "x-rapidapi-key": process.env.VUE_APP_RAPIDAPI_KEY */
-          //	}
         }
       )
         .then((response) => {
@@ -83,40 +93,40 @@ export default {
           }
         })
         .then((response) => {
-          console.log(response);
+          const firstDay = this.convertToJST(response.daily[1].dt);
+          const secondDay = this.convertToJST(response.daily[2].dt);
+          const thirdDay = this.convertToJST(response.daily[3].dt);
+
           // Weather forecast for day 1
-          this.items[0].date = response.list[3].dt_txt.substring(0, 10);
-          this.items[0].weather = response.list[3].weather[0].main;
+
+          this.items[0].date = firstDay;
+          this.items[0].weather = response.daily[1].weather[0].description;
           this.items[0].icon =
             '<img src= "http://api.openweathermap.org/img/w/' +
-            response.list[3].weather[0].icon +
+            response.daily[1].weather[0].icon +
             '.png">';
-          this.items[0].temp = (response.list[3].main.temp - 273.15).toFixed(3);
-          this.items[0].humidity = response.list[3].main.humidity;
+          this.items[0].temp = (response.daily[1].temp.day - 273.15).toFixed(3);
+          this.items[0].humidity = response.daily[1].humidity;
 
           // Weather forecast for day 2
-          this.items[1].date = response.list[11].dt_txt.substring(0, 10);
-          this.items[1].weather = response.list[11].weather[0].main;
+          this.items[1].date = secondDay;
+          this.items[1].weather = response.daily[2].weather[0].description;
           this.items[1].icon =
             '<img src= "http://api.openweathermap.org/img/w/' +
-            response.list[11].weather[0].icon +
+            response.daily[2].weather[0].icon +
             '.png">';
-          this.items[1].temp = (response.list[11].main.temp - 273.15).toFixed(
-            3
-          );
-          this.items[1].humidity = response.list[11].main.humidity;
+          this.items[1].temp = (response.daily[2].temp.day - 273.15).toFixed(3);
+          this.items[1].humidity = response.daily[2].humidity;
 
           // Weather forecast for day 3
-          this.items[2].date = response.list[19].dt_txt.substring(0, 10);
-          this.items[2].weather = response.list[19].weather[0].main;
+          this.items[2].date = thirdDay;
+          this.items[2].weather = response.daily[3].weather[0].description;
           this.items[2].icon =
             '<img src= "http://api.openweathermap.org/img/w/' +
-            response.list[19].weather[0].icon +
+            response.daily[3].weather[0].icon +
             '.png">';
-          this.items[2].temp = (response.list[19].main.temp - 273.15).toFixed(
-            3
-          );
-          this.items[2].humidity = response.list[19].main.humidity;
+          this.items[2].temp = (response.daily[3].temp.day - 273.15).toFixed(3);
+          this.items[2].humidity = response.daily[3].humidity;
 
           this.responseAvailable = true;
         })
