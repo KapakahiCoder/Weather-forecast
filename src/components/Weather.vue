@@ -2,6 +2,9 @@
   <div>
     <div v-if="responseAvailable == true">
       <div>
+        <hr />
+        <h2>Here is the weather report for {{ state }}, {{ town }}:</h2>
+        <hr />
         <b-table striped hover :items="items" :fields="fields">
           <template v-slot:cell(icon)="data">
             <span v-html="data.value"></span>

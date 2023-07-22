@@ -17,6 +17,7 @@
               getCoords();
             "
             variant="info"
+            type="submit"
             >Search</b-button
           >
         </b-input-group-append>
@@ -28,11 +29,6 @@
       <h6>
         Please enter a valid Japanese postal code without any hypens or spaces
       </h6>
-    </div>
-    <div v-if="responseAvailable == true">
-      <hr />
-      <h2>Here is the weather report for {{ state }}, {{ town }}:</h2>
-      <hr />
     </div>
     <Weather v-bind:town="town" :state="state" :lon="lon" :lat="lat" />
     <Map v-bind:lon="lon" :lat="lat" />
@@ -67,7 +63,6 @@ export default {
         alert("Please enter a valid 7 digit Japanese postal code");
       }
       this.zipcode = postalCode;
-      this.responseAvailable = false;
       fetch(
         "https://postcodejp-api.p.rapidapi.com/postcodes?postcode=" +
           postalCode,
@@ -120,7 +115,6 @@ export default {
         .then((response) => {
           this.lon = response.results[0].geometry.location.lng;
           this.lat = response.results[0].geometry.location.lat;
-          this.responseAvailable = true;
         })
         .catch((err) => {
           console.log(err);
