@@ -15,7 +15,7 @@ Check the weather forecast at:
 yarn install
 ```
 
-Please rename the ".env-example" file to ".env" and enter your own RapidAPI key and Google developer key.
+Please rename the ".env-example" file to ".env" and enter your own RapidAPI key, Google developer key, and Open Weather key.
 
 ### Compiles and hot-reloads for development
 
@@ -29,6 +29,7 @@ yarn serve
 - [BootstrapVue](https://bootstrap-vue.org/)
 - [Rakuten Rapid API](https://english.api.rakuten.net/)
 - [Google Cloud API](https://cloud.google.com/apis)
+- [Open Weather API](https://openweathermap.org/)
 
 ## Contributing
 
