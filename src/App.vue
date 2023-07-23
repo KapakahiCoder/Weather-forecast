@@ -2,22 +2,16 @@
   <div id="app">
     <h1>Let's check out the weather forecast for your area</h1>
     <form id="form" @submit.prevent>
-      <b-input-group prepend="Postal Code:">
+      <b-input-group prepend="Area:">
         <div>
           <b-form-input
             class="form-control"
-            @keyup.enter="search(code)"
+            @keyup.enter="getLocation(code)"
             v-model="code"
           ></b-form-input>
         </div>
         <b-input-group-append>
-          <b-button
-            @click="
-              search(code);
-              getCoords();
-            "
-            variant="info"
-            type="submit"
+          <b-button @click="getLocation(code)" variant="info" type="submit"
             >Search</b-button
           >
         </b-input-group-append>
@@ -57,41 +51,12 @@ export default {
     Map,
   },
   methods: {
-    // Get the state and city name from user given zipcode
-    search: function(postalCode) {
+    // Get the state, town and coordinates from user given zipcode
+    getLocation: function(postalCode) {
       if (postalCode.length !== 7 || isNaN(postalCode) === true) {
         alert("Please enter a valid 7 digit Japanese postal code");
       }
       this.zipcode = postalCode;
-      fetch(
-        "https://postcodejp-api.p.rapidapi.com/postcodes?postcode=" +
-          postalCode,
-        {
-          method: "GET",
-          headers: {
-            "x-rapidapi-host": "postcodejp-api.p.rapidapi.com",
-            "x-rapidapi-key": process.env.VUE_APP_RAPIDAPI_KEY,
-          },
-        }
-      )
-        .then((response) => {
-          if (response) {
-            return response.json();
-          } else {
-            alert(
-              "Server returned " + response.status + " : " + response.statusText
-            );
-          }
-        })
-        .then((response) => {
-          this.state = response.data[0].state;
-          this.town = response.data[0].town;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    getCoords: function() {
       fetch(
         "https://google-maps-geocoding.p.rapidapi.com/geocode/json?language=en&address=" +
           this.zipcode,
@@ -113,6 +78,8 @@ export default {
           }
         })
         .then((response) => {
+          this.state = response.results[0].address_components[3].long_name;
+          this.town = response.results[0].address_components[2].long_name;
           this.lon = response.results[0].geometry.location.lng;
           this.lat = response.results[0].geometry.location.lat;
         })
