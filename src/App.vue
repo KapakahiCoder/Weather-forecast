@@ -1,14 +1,10 @@
 <template>
   <div id="app">
     <h1>Let's check out the weather forecast for your area</h1>
-    <form id="form" @submit.prevent>
+    <form id="form" ref="form" @submit.prevent>
       <b-input-group prepend="Area:">
         <div>
-          <b-form-input
-            class="form-control"
-            @keyup.enter="getLocation(code)"
-            v-model="code"
-          ></b-form-input>
+          <b-form-input class="form-control" v-model="code"></b-form-input>
         </div>
         <b-input-group-append>
           <b-button @click="getLocation(code)" variant="info" type="submit"
@@ -18,7 +14,6 @@
       </b-input-group>
       <br />
     </form>
-
     <div>
       <h6>
         Please enter a valid Japanese postal code without any hypens or spaces
@@ -38,7 +33,6 @@ export default {
     return {
       code: null,
       zipcode: null,
-      responseAvailable: false,
       state: null,
       town: null,
       lon: null,
@@ -53,10 +47,7 @@ export default {
   methods: {
     // Get the state, town and coordinates from user given zipcode
     getLocation: function(postalCode) {
-      if (postalCode.length !== 7 || isNaN(postalCode) === true) {
-        alert("Please enter a valid 7 digit Japanese postal code");
-      }
-      this.zipcode = postalCode;
+      postalCode;
       fetch(
         "https://google-maps-geocoding.p.rapidapi.com/geocode/json?language=en&address=" +
           this.zipcode,
@@ -78,6 +69,13 @@ export default {
           }
         })
         .then((response) => {
+          if (response.status == "ZERO_RESULTS") {
+            alert(
+              "Could you please enter more information? For example, '90210, USA' or 'Eiffel Tower'."
+            );
+            this.reloadPage();
+          }
+          this.$refs.form.reset();
           this.state = response.results[0].address_components[3].long_name;
           this.town = response.results[0].address_components[2].long_name;
           this.lon = response.results[0].geometry.location.lng;
@@ -86,6 +84,9 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    reloadPage() {
+      window.location.reload();
     },
   },
 };
