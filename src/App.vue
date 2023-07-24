@@ -15,8 +15,12 @@
       <br />
     </form>
     <div>
+      <h5>
+        Please enter a zipcode and country or a description of the area you want
+        to lookup.
+      </h5>
       <h6>
-        Please enter a valid Japanese postal code without any hypens or spaces
+        For example: "272-0022 Japan", "Tokyo Tower", or "San Jose, California"
       </h6>
     </div>
     <Weather v-bind:town="town" :state="state" :lon="lon" :lat="lat" />
@@ -47,7 +51,7 @@ export default {
   methods: {
     // Get the state, town and coordinates from user given zipcode
     getLocation: function(postalCode) {
-      postalCode;
+      this.zipcode = postalCode;
       fetch(
         "https://google-maps-geocoding.p.rapidapi.com/geocode/json?language=en&address=" +
           this.zipcode,
@@ -69,6 +73,7 @@ export default {
           }
         })
         .then((response) => {
+          console.log(response);
           if (response.status == "ZERO_RESULTS") {
             alert(
               "Could you please enter more information? For example, '90210, USA' or 'Eiffel Tower'."

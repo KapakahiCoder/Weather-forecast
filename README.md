@@ -1,6 +1,6 @@
 # Weather Forecast
 
-Using a valid Japanese postal code, get a three-day weather forecast and see a map of that area.
+Using a valid Japanese postal code, postal code and country name, or partial mailing address, get a three-day weather forecast and see a map of that area.
 
 Check the weather forecast at:
 [japan-weather-forecast](https://japan-weather-forecast.web.app/)
