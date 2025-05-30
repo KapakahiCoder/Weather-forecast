@@ -9,19 +9,28 @@ Check the weather forecast at:
 
 ![WeatherForecast](./src/assets/weatherScreen4.png)
 
-## Project setup
 
+## Getting Started
+
+### Project setup
+
+Make sure to install dependencies:
+
+```bash
+npm install
 ```
-yarn install
+
+### Development Server
+
+Start the development server on `http://localhost:8080`:
+
+```bash
+npm run serve
 ```
+
 
 Please rename the ".env-example" file to ".env" and enter your own RapidAPI key, Google developer key, and Open Weather key.
 
-### Compiles and hot-reloads for development
-
-```
-yarn serve
-```
 
 ## Built With
 
