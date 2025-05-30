@@ -1,11 +1,15 @@
 <template>
   <div>
-    <div v-if="responseAvailable == true">
+    <div v-if="responseAvailable">
       <h2>Map of local area</h2>
-      <img v-bind:src="mapURL" />
-      <br />
-      <br />
-      <br />
+      <img 
+        v-bind:src="mapURL" 
+        @error="handleImageError"
+        alt="Map of location"
+      />
+    </div>
+    <div v-else>
+      <p>Loading map...</p>
     </div>
   </div>
 </template>
@@ -46,6 +50,11 @@ export default {
         + `&maptype=roadmap`
         + `&markers=color:red%7C${this.lat},${this.lon}`
         + `&key=${googleToken}`;
+    },
+    handleImageError(e) {
+      console.error('Error loading map image:', e);
+      this.responseAvailable = false;
+      alert('Error loading map. Please check your API key and permissions.');
     },
   },
 };
