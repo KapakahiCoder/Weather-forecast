@@ -80,8 +80,8 @@ export default {
           this.lat = response.results[0].geometry.location.lat;
         })
         .catch((err) => {
-          console.error(err);
-          alert("Error fetching location data. Please check your API key.");
+          console.error('Error details:', err);
+          alert(`Error fetching location data: ${err.message}`);
         });
     },
     reloadPage() {
