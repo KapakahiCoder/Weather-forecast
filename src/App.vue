@@ -53,27 +53,20 @@ export default {
     getLocation: function(postalCode) {
       this.zipcode = postalCode;
       fetch(
-        "https://google-maps-geocoding.p.rapidapi.com/geocode/json?language=en&address=" +
-          this.zipcode,
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(this.zipcode)}&key=${process.env.VUE_APP_GOOGLE_API_KEY}`,
         {
-          method: "GET",
-          headers: {
-            "x-rapidapi-host": "google-maps-geocoding.p.rapidapi.com",
-            "x-rapidapi-key": process.env.VUE_APP_RAPIDAPI_KEY,
-          },
+          method: "GET"
         }
       )
         .then((response) => {
-          if (response) {
+          if (response.ok) {
             return response.json();
           } else {
-            alert(
-              "Server returned " + response.status + " : " + response.statusText
-            );
+            throw new Error(`HTTP error! status: ${response.status}`);
           }
         })
         .then((response) => {
-          console.log(response);
+          console.log(response, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
           if (response.status == "ZERO_RESULTS") {
             alert(
               "Could you please enter more information? For example, '90210, USA' or 'Eiffel Tower'."
@@ -87,7 +80,8 @@ export default {
           this.lat = response.results[0].geometry.location.lat;
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
+          alert("Error fetching location data. Please check your API key.");
         });
     },
     reloadPage() {

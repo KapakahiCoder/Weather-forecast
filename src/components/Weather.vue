@@ -76,7 +76,7 @@ export default {
     },
     getWeather() {
       fetch(
-        `https://api.openweathermap.org/data/3.0/onecall?lat=` +
+        `https://api.openweathermap.org/data/2.5/onecall?lat=` +
           this.lat +
           `&lon=` +
           this.lon +
@@ -88,6 +88,7 @@ export default {
       )
         .then((response) => {
           if (response) {
+            console.log(response)
             return response.json();
           } else {
             alert(
