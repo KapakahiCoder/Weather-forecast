@@ -75,68 +75,62 @@ export default {
         .padStart(2, "0")}-${day.toString().padStart(2, "0")} (${dayOfWeek})`;
     },
     getWeather() {
+      const apiKey = process.env.VUE_APP_OPEN_WEATHER_KEY
       fetch(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=` +
-          this.lat +
-          `&lon=` +
-          this.lon +
-          `&appid=` +
-          process.env.VUE_APP_OPEN_WEATHER_KEY,
+        `https://api.openweathermap.org/data/3.0/onecall?lat=${this.lat}&lon=${this.lon}&exclude=minutely,hourly&appid=${apiKey}`,
         {
           method: "GET",
         }
       )
-        .then((response) => {
-          if (response) {
-            console.log(response)
-            return response.json();
-          } else {
-            alert(
-              "Server returned " + response.status + " : " + response.statusText
-            );
-          }
-        })
-        .then((response) => {
-          const firstDay = this.convertToJST(response.daily[1].dt);
-          const secondDay = this.convertToJST(response.daily[2].dt);
-          const thirdDay = this.convertToJST(response.daily[3].dt);
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((response) => {
+        console.log(response, "WEATHER")
+        const firstDay = this.convertToJST(response.daily[1].dt);
+        const secondDay = this.convertToJST(response.daily[2].dt);
+        const thirdDay = this.convertToJST(response.daily[3].dt);
 
-          // Weather forecast for day 1
+        // Weather forecast for day 1
 
-          this.items[0].date = firstDay;
-          this.items[0].weather = response.daily[1].weather[0].description;
-          this.items[0].icon =
-            '<img src= "http://api.openweathermap.org/img/w/' +
-            response.daily[1].weather[0].icon +
-            '.png">';
-          this.items[0].temp = (response.daily[1].temp.day - 273.15).toFixed(3);
-          this.items[0].humidity = response.daily[1].humidity;
+        this.items[0].date = firstDay;
+        this.items[0].weather = response.daily[1].weather[0].description;
+        this.items[0].icon =
+          '<img src= "http://api.openweathermap.org/img/w/' +
+          response.daily[1].weather[0].icon +
+          '.png">';
+        this.items[0].temp = (response.daily[1].temp.day - 273.15).toFixed(3);
+        this.items[0].humidity = response.daily[1].humidity;
 
-          // Weather forecast for day 2
-          this.items[1].date = secondDay;
-          this.items[1].weather = response.daily[2].weather[0].description;
-          this.items[1].icon =
-            '<img src= "http://api.openweathermap.org/img/w/' +
-            response.daily[2].weather[0].icon +
-            '.png">';
-          this.items[1].temp = (response.daily[2].temp.day - 273.15).toFixed(3);
-          this.items[1].humidity = response.daily[2].humidity;
+        // Weather forecast for day 2
+        this.items[1].date = secondDay;
+        this.items[1].weather = response.daily[2].weather[0].description;
+        this.items[1].icon =
+          '<img src= "http://api.openweathermap.org/img/w/' +
+          response.daily[2].weather[0].icon +
+          '.png">';
+        this.items[1].temp = (response.daily[2].temp.day - 273.15).toFixed(3);
+        this.items[1].humidity = response.daily[2].humidity;
 
-          // Weather forecast for day 3
-          this.items[2].date = thirdDay;
-          this.items[2].weather = response.daily[3].weather[0].description;
-          this.items[2].icon =
-            '<img src= "http://api.openweathermap.org/img/w/' +
-            response.daily[3].weather[0].icon +
-            '.png">';
-          this.items[2].temp = (response.daily[3].temp.day - 273.15).toFixed(3);
-          this.items[2].humidity = response.daily[3].humidity;
+        // Weather forecast for day 3
+        this.items[2].date = thirdDay;
+        this.items[2].weather = response.daily[3].weather[0].description;
+        this.items[2].icon =
+          '<img src= "http://api.openweathermap.org/img/w/' +
+          response.daily[3].weather[0].icon +
+          '.png">';
+        this.items[2].temp = (response.daily[3].temp.day - 273.15).toFixed(3);
+        this.items[2].humidity = response.daily[3].humidity;
 
-          this.responseAvailable = true;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        this.responseAvailable = true;
+      })
+      .catch((error) => {
+        console.error('Weather API Error:', error);
+        alert(`Failed to fetch weather data: ${error.message}`);
+      });
     },
   },
 };
