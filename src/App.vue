@@ -74,7 +74,7 @@ export default {
             this.reloadPage();
           }
           this.$refs.form.reset();
-          this.state = response.results[0].address_components[3].long_name;
+          this.state = response.results[0].address_components[2].long_name;
           this.town = response.results[0].address_components[2].long_name;
           this.lon = response.results[0].geometry.location.lng;
           this.lat = response.results[0].geometry.location.lat;
