@@ -67,6 +67,7 @@ export default {
         })
         .then((response) => {
           console.log(response, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+          console.log(response.results[0].formatted_address, "formattedd addy");
           if (response.status == "ZERO_RESULTS") {
             alert(
               "Could you please enter more information? For example, '90210, USA' or 'Eiffel Tower'."
@@ -75,7 +76,7 @@ export default {
           }
           this.$refs.form.reset();
           this.state = response.results[0].address_components[2].long_name;
-          this.town = response.results[0].address_components[2].long_name;
+          this.town = response.results[0].address_components[1].long_name;
           this.lon = response.results[0].geometry.location.lng;
           this.lat = response.results[0].geometry.location.lat;
         })
