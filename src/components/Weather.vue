@@ -11,9 +11,17 @@
         <hr />
         <h2>Here is the weather report for {{ state }}, {{ town }}:</h2>
         <hr />
-        <b-table striped hover :items="items" :fields="fields">
+        <b-table
+          striped
+          hover
+          :items="items"
+          :fields="fields"
+          class="weather-table"
+        >
           <template v-slot:cell(icon)="data">
-            <span v-html="data.value"></span>
+            <div class="icon-cell">
+              <span v-html="data.value"></span>
+            </div>
           </template>
         </b-table>
       </div>
@@ -135,7 +143,10 @@ export default {
       const days = [1, 2, 3].map(index => ({
         date: this.convertToJST(response.daily[index].dt),
         weather: response.daily[index].weather[0].description,
-        icon: `<img src="https://openweathermap.org/img/w/${response.daily[index].weather[0].icon}.png">`,
+        icon: `<img 
+          src="https://openweathermap.org/img/w/${response.daily[index].weather[0].icon}.png" 
+          alt="${response.daily[index].weather[0].description}"
+        >`,
         temp: (response.daily[index].temp.day - 273.15).toFixed(1),
         humidity: response.daily[index].humidity
       }));
@@ -147,4 +158,34 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.weather-table {
+  background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+}
+
+.weather-table >>> td {
+  vertical-align: middle !important;
+}
+
+.icon-cell {
+  background-color: #4a5568;
+  border-radius: 8px;
+  padding: 8px !important;
+}
+
+.icon-cell img {
+  width: 40px;
+  height: 40px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Striped table styling */
+.weather-table >>> tr:nth-child(odd) td {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.weather-table >>> tr:nth-child(even) td {
+  background-color: #ffffff;
+}
+</style>
