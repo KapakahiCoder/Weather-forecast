@@ -14,7 +14,7 @@
       </b-input-group>
       <br />
     </form>
-    <div>
+    <div class="instructions">
       <h5>
         Please enter a zipcode and country or a description of the area you want
         to lookup.
@@ -105,5 +105,9 @@ export default {
 #form {
   margin-top: 30px;
   margin-left: 36%;
+}
+
+.instructions h6 {
+  margin-bottom: 4rem;
 }
 </style>

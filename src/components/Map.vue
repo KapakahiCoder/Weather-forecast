@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="map-container">
     <div v-if="responseAvailable">
       <h2>Map of local area</h2>
       <img 
@@ -60,4 +60,13 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.map-container {
+  margin-bottom: 5rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+</style>

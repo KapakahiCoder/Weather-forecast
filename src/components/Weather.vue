@@ -161,6 +161,7 @@ export default {
 <style scoped>
 .weather-table {
   background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+  margin-bottom: 5rem; 
 }
 
 .weather-table >>> td {
