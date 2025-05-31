@@ -1,6 +1,12 @@
 <template>
   <div>
-    <div v-if="responseAvailable == true">
+    <div v-if="error" class="error-message">
+      <b-alert show variant="danger">{{ error }}</b-alert>
+    </div>
+    <div v-else-if="loading">
+      <b-spinner label="Loading..."></b-spinner>
+    </div>
+    <div v-else-if="responseAvailable">
       <div>
         <hr />
         <h2>Here is the weather report for {{ state }}, {{ town }}:</h2>
@@ -16,10 +22,18 @@
 </template>
 
 <script>
+import { BSpinner, BAlert } from 'bootstrap-vue'
+
 export default {
+  components: {
+    BSpinner,
+    BAlert
+  },
   data() {
     return {
       responseAvailable: false,
+      loading: false,
+      error: null,
       fields: [
         { key: "date" },
         { key: "weather" },
@@ -75,7 +89,21 @@ export default {
         .padStart(2, "0")}-${day.toString().padStart(2, "0")} (${dayOfWeek})`;
     },
     getWeather() {
-      const apiKey = process.env.VUE_APP_OPEN_WEATHER_KEY
+      if (!this.lat || !this.lon) {
+        this.error = 'Location coordinates are required';
+        return;
+      }
+
+      this.loading = true;
+      this.error = null;
+      const apiKey = process.env.VUE_APP_OPEN_WEATHER_KEY;
+
+      if (!apiKey) {
+        this.error = 'API key is not configured';
+        this.loading = false;
+        return;
+      }
+
       fetch(
         `https://api.openweathermap.org/data/3.0/onecall?lat=${this.lat}&lon=${this.lon}&exclude=minutely,hourly&appid=${apiKey}`,
         {
@@ -83,54 +111,37 @@ export default {
         }
       )
       .then((response) => {
+        console.log(response, "AAAAAAA")
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error(`Weather API error: ${response.status}`);
         }
         return response.json();
       })
       .then((response) => {
-        console.log(response, "WEATHER")
-        const firstDay = this.convertToJST(response.daily[1].dt);
-        const secondDay = this.convertToJST(response.daily[2].dt);
-        const thirdDay = this.convertToJST(response.daily[3].dt);
-
-        // Weather forecast for day 1
-
-        this.items[0].date = firstDay;
-        this.items[0].weather = response.daily[1].weather[0].description;
-        this.items[0].icon =
-          '<img src= "http://api.openweathermap.org/img/w/' +
-          response.daily[1].weather[0].icon +
-          '.png">';
-        this.items[0].temp = (response.daily[1].temp.day - 273.15).toFixed(3);
-        this.items[0].humidity = response.daily[1].humidity;
-
-        // Weather forecast for day 2
-        this.items[1].date = secondDay;
-        this.items[1].weather = response.daily[2].weather[0].description;
-        this.items[1].icon =
-          '<img src= "http://api.openweathermap.org/img/w/' +
-          response.daily[2].weather[0].icon +
-          '.png">';
-        this.items[1].temp = (response.daily[2].temp.day - 273.15).toFixed(3);
-        this.items[1].humidity = response.daily[2].humidity;
-
-        // Weather forecast for day 3
-        this.items[2].date = thirdDay;
-        this.items[2].weather = response.daily[3].weather[0].description;
-        this.items[2].icon =
-          '<img src= "http://api.openweathermap.org/img/w/' +
-          response.daily[3].weather[0].icon +
-          '.png">';
-        this.items[2].temp = (response.daily[3].temp.day - 273.15).toFixed(3);
-        this.items[2].humidity = response.daily[3].humidity;
-
-        this.responseAvailable = true;
+        if (!response.daily || response.daily.length < 4) {
+          throw new Error('Invalid weather data received');
+        }
+        this.updateWeatherData(response);
       })
       .catch((error) => {
         console.error('Weather API Error:', error);
-        alert(`Failed to fetch weather data: ${error.message}`);
+        this.error = `Failed to fetch weather data: ${error.message}`;
+      })
+      .finally(() => {
+        this.loading = false;
       });
+    },
+    updateWeatherData(response) {
+      const days = [1, 2, 3].map(index => ({
+        date: this.convertToJST(response.daily[index].dt),
+        weather: response.daily[index].weather[0].description,
+        icon: `<img src="https://openweathermap.org/img/w/${response.daily[index].weather[0].icon}.png">`,
+        temp: (response.daily[index].temp.day - 273.15).toFixed(1),
+        humidity: response.daily[index].humidity
+      }));
+
+      this.items = days;
+      this.responseAvailable = true;
     },
   },
 };
