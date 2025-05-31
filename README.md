@@ -36,7 +36,6 @@ Please rename the ".env-example" file to ".env" and enter your own RapidAPI key,
 
 - [Vue](https://vuejs.org/)
 - [BootstrapVue](https://bootstrap-vue.org/)
-- [Rakuten Rapid API](https://english.api.rakuten.net/)
 - [Google Cloud API](https://cloud.google.com/apis)
 - [Open Weather API](https://openweathermap.org/)
 
