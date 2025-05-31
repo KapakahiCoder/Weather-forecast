@@ -20,6 +20,12 @@ Make sure to install dependencies:
 npm install
 ```
 
+Steps:
+- Subscribe to OpenAPI's "One Call API 3.0"
+- Subscribe to Google Cloud's "Geocoding API" and "Maps Static API"
+- Rename the ".env-example" file to ".env"
+- Enter your own Google Cloud key and OpenWeather key
+
 ### Development Server
 
 Start the development server on `http://localhost:8080`:
@@ -28,8 +34,6 @@ Start the development server on `http://localhost:8080`:
 npm run serve
 ```
 
-
-Please rename the ".env-example" file to ".env" and enter your own RapidAPI key, Google developer key, and Open Weather key.
 
 
 ## Built With
