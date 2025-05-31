@@ -66,8 +66,6 @@ export default {
           }
         })
         .then((response) => {
-          console.log(response, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-          console.log(response.results[0].formatted_address, "formattedd addy");
           if (response.status == "ZERO_RESULTS") {
             alert(
               "Could you please enter more information? For example, '90210, USA' or 'Eiffel Tower'."
