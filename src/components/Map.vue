@@ -8,7 +8,7 @@
         alt="Map of location"
       />
     </div>
-    <div v-else>
+    <div v-else-if="searchInitiated">
       <p>Loading map...</p>
     </div>
   </div>
@@ -19,6 +19,7 @@ export default {
   data() {
     return {
       responseAvailable: false,
+      searchInitiated: false,
       mapURL: null,
     };
   },
@@ -39,6 +40,7 @@ export default {
     displayMap() {
       if (!this.lat || !this.lon) return;
 
+      this.searchInitiated = true;
       const googleToken = process.env.VUE_APP_GOOGLE_API_KEY;
       // Displays map only if responseAvailable is true
       this.responseAvailable = true;
@@ -54,6 +56,7 @@ export default {
     handleImageError(e) {
       console.error('Error loading map image:', e);
       this.responseAvailable = false;
+      this.searchInitiated = false;
       alert('Error loading map. Please check your API key and permissions.');
     },
   },
