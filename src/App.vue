@@ -2,14 +2,10 @@
   <div id="app">
     <h1>Let's check out the weather forecast for your area</h1>
     <form id="form" ref="form" @submit.prevent>
-      <b-input-group prepend="Area:">
-        <div>
-          <b-form-input class="form-control" v-model="code"></b-form-input>
-        </div>
+      <b-input-group class="input-group-container" prepend="Area:">
+        <b-form-input class="form-control" v-model="code"></b-form-input>
         <b-input-group-append>
-          <b-button @click="getLocation(code)" variant="info" type="submit"
-            >Search</b-button
-          >
+          <b-button @click="getLocation(code)" variant="info" type="submit">Search</b-button>
         </b-input-group-append>
       </b-input-group>
       <br />
@@ -102,7 +98,19 @@ export default {
 
 #form {
   margin-top: 30px;
-  margin-left: 36%;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input-group-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.form-control {
+  max-width: 300px;
 }
 
 .instructions h6 {
